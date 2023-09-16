@@ -10,6 +10,7 @@ require (
 	github.com/lixvyang/ginzero v0.0.3
 	github.com/natefinch/lumberjack v2.0.0+incompatible
 	github.com/qiniu/qmgo v1.1.8
+	github.com/rs/xid v1.5.0
 	github.com/rs/zerolog v1.30.0
 	github.com/shirou/gopsutil v3.21.11+incompatible
 	github.com/spf13/viper v1.16.0
