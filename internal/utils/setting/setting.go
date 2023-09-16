@@ -20,6 +20,7 @@ type AppConfig struct {
 	*LogConfig   `mapstructure:"log"`
 	*MongoConfig `mapstructure:"mongo"`
 	*RedisConfig `mapstructure:"redis"`
+	*MixinConfig `mapstructure:"mixin"`
 }
 
 type MongoConfig struct {

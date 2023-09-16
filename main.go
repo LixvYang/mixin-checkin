@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/lixvyang/mixin-checkin/internal/dao/mongo"
+	"github.com/lixvyang/mixin-checkin/internal/dao/redis"
 	"github.com/lixvyang/mixin-checkin/internal/router"
 	"github.com/lixvyang/mixin-checkin/internal/utils/setting"
 	"github.com/lixvyang/mixin-checkin/pkg/logger"
@@ -24,11 +25,16 @@ func init() {
 	log.Info().Any("config", setting.Conf).Send()
 	logger.Get(setting.Conf)
 	if err := mongo.Init(setting.Conf.MongoConfig); err != nil {
-		logger.Lg.Panic().Err(err).Msg("err")
+		logger.Lg.Panic().Err(err).Msg("init mongo error")
+	}
+	if err := redis.Init(setting.Conf.RedisConfig); err != nil {
+		logger.Lg.Panic().Err(err).Msg("init redis err")
 	}
 }
 
 func main() {
+	defer mongo.Close()
+	defer redis.Close()
 	// 5. 注册路由
 	r := router.Init()
 	srv := &http.Server{

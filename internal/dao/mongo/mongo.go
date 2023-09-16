@@ -28,11 +28,11 @@ type Coll struct {
 func Init(cfg *setting.MongoConfig) (err error) {
 	mgo.once.Do(func() {
 		ctx := context.Background()
-		mongoCli, err := qmgo.NewClient(ctx, &qmgo.Config{Uri: fmt.Sprintf("mongodb://%s:%d", cfg.Host, cfg.Port)})
+		mgo.mongoCli, err = qmgo.NewClient(ctx, &qmgo.Config{Uri: fmt.Sprintf("mongodb://%s:%d", cfg.Host, cfg.Port)})
 		if err != nil {
 			logger.Lg.Panic().Err(err).Msg("Init Mongo error.")
 		}
-		mgo.DB = mongoCli.Database(cfg.DB)
+		mgo.DB = mgo.mongoCli.Database(cfg.DB)
 		logger.Lg.Info().Msg("init mongo success.")
 		// coll := DB.Collection("user")
 	})
@@ -44,5 +44,6 @@ func Init(cfg *setting.MongoConfig) (err error) {
 
 // Close 关闭Mongo连接
 func Close() {
-	mgo.mongoCli.Close(context.Background())
+	logger.Lg.Info().Msg("mongo success close.")
+	_ = mgo.mongoCli.Close(context.Background())
 }

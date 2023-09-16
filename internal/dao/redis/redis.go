@@ -17,6 +17,7 @@ var (
 
 // Init 初始化连接
 func Init(cfg *setting.RedisConfig) (err error) {
+
 	client = redis.NewClient(&redis.Options{
 		Addr:         fmt.Sprintf("%s:%d", cfg.Host, cfg.Port),
 		Password:     cfg.Password, // no password set
@@ -30,11 +31,13 @@ func Init(cfg *setting.RedisConfig) (err error) {
 		logger.Lg.Panic().Err(err).Msg("init redis error")
 		return err
 	}
-	logger.Lg.Info().Msg("init redis.")
+
+	logger.Lg.Info().Msg("init redis success.")
 
 	return nil
 }
 
 func Close() {
+	logger.Lg.Info().Msg("redis success close.")
 	_ = client.Close()
 }

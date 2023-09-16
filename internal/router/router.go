@@ -8,6 +8,7 @@ import (
 
 func Init() *gin.Engine {
 	r := gin.New()
+	// gin.SetMode()
 	r.Use(ginzero.Ginzero(&logger.Lg), ginzero.RecoveryWithZero(&logger.Lg, true))
 
 	r.GET("/ping", func(c *gin.Context) {
