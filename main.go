@@ -18,11 +18,11 @@ import (
 )
 
 func init() {
-	if err := setting.Init("./configs/configs.yaml"); err != nil {
+	if err := setting.Init("./configs/configs_example.yaml"); err != nil {
 		log.Fatal().Err(err)
 	}
 	log.Info().Any("config", setting.Conf).Send()
-	logger.Init(setting.Conf)
+	logger.Get(setting.Conf)
 	if err := mongo.Init(setting.Conf.MongoConfig); err != nil {
 		logger.Lg.Panic().Err(err).Msg("err")
 	}

@@ -19,7 +19,7 @@ vendor/
 
 .DS_Store
 .idea/
-tmp
+tmp/
 
 configs/configs.yaml
 *.

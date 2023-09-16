@@ -20,7 +20,7 @@ var (
 	Lg   zerolog.Logger
 )
 
-func Init(conf *setting.AppConfig) {
+func Get(conf *setting.AppConfig) zerolog.Logger {
 	once.Do(func() {
 		zerolog.ErrorStackMarshaler = pkgerrors.MarshalStack
 		zerolog.TimeFieldFormat = time.RFC3339Nano
@@ -40,7 +40,7 @@ func Init(conf *setting.AppConfig) {
 			},
 		}
 
-		if conf.Mode != "dev" {
+		if conf.Mode != "debug" {
 			fileLogger := &lumberjack.Logger{
 				Filename:   conf.LogConfig.Filename,
 				MaxSize:    conf.LogConfig.MaxSize, //
@@ -72,4 +72,5 @@ func Init(conf *setting.AppConfig) {
 			Str("go_version", buildInfo.GoVersion).
 			Logger()
 	})
+	return Lg
 }

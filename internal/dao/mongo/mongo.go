@@ -11,28 +11,38 @@ import (
 	"github.com/qiniu/qmgo"
 )
 
-var (
-	once        sync.Once
-	mongoClient *qmgo.Client
-	DB          *qmgo.Database
-)
+var mgo = new(Mgo)
+var coll = new(Coll)
+
+type Mgo struct {
+	once     sync.Once
+	mongoCli *qmgo.Client
+	DB       *qmgo.Database
+}
+
+type Coll struct {
+	UserColl *qmgo.Collection
+}
 
 // Init 初始化Mongo连接
 func Init(cfg *setting.MongoConfig) (err error) {
-	once.Do(func() {
+	mgo.once.Do(func() {
 		ctx := context.Background()
-		mongoClient, err := qmgo.NewClient(ctx, &qmgo.Config{Uri: fmt.Sprintf("mongodb://%s:%d", cfg.Host, cfg.Port)})
+		mongoCli, err := qmgo.NewClient(ctx, &qmgo.Config{Uri: fmt.Sprintf("mongodb://%s:%d", cfg.Host, cfg.Port)})
 		if err != nil {
 			logger.Lg.Panic().Err(err).Msg("Init Mongo error.")
 		}
-		DB = mongoClient.Database(cfg.DB)
+		mgo.DB = mongoCli.Database(cfg.DB)
 		logger.Lg.Info().Msg("init mongo success.")
-		// coll := db.Collection("user")
+		// coll := DB.Collection("user")
 	})
+
+	coll.UserColl = mgo.DB.Collection("user")
+
 	return
 }
 
 // Close 关闭Mongo连接
 func Close() {
-	mongoClient.Close(context.Background())
+	mgo.mongoCli.Close(context.Background())
 }
