@@ -21,5 +21,5 @@ vendor/
 .idea/
 tmp
 
-configs/config_example.yaml
+configs/configs.yaml
 *.
