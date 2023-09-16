@@ -4,12 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/lixvyang/ginzero"
 	"github.com/lixvyang/mixin-checkin/internal/middleware"
+	"github.com/lixvyang/mixin-checkin/internal/utils/setting"
 	"github.com/lixvyang/mixin-checkin/pkg/logger"
 )
 
-func Init() *gin.Engine {
+func Init(conf *setting.AppConfig) *gin.Engine {
 	r := gin.New()
-	// gin.SetMode()
+	gin.SetMode(conf.Mode)
 	r.Use(ginzero.Ginzero(&logger.Lg), ginzero.RecoveryWithZero(&logger.Lg, true), middleware.GinXid(&logger.Lg))
 
 	r.GET("/ping", func(c *gin.Context) {

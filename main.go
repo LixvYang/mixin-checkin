@@ -22,7 +22,6 @@ func init() {
 	if err := setting.Init("./configs/configs_example.yaml"); err != nil {
 		log.Fatal().Err(err)
 	}
-	log.Info().Any("config", setting.Conf).Send()
 	logger.Get(setting.Conf)
 	if err := mongo.Init(setting.Conf.MongoConfig); err != nil {
 		logger.Lg.Panic().Err(err).Msg("init mongo error")
@@ -36,7 +35,7 @@ func main() {
 	defer mongo.Close()
 	defer redis.Close()
 	// 5. 注册路由
-	r := router.Init()
+	r := router.Init(setting.Conf)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", setting.Conf.Port),
 		Handler: r,
