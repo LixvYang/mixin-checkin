@@ -1,5 +1,5 @@
 name: "mixin-checkin"
-mode: "dev"
+mode: "debug"
 port: 8080
 version: "v0.0.1"
 start_time: "2023-09-16"
