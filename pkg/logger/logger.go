@@ -67,7 +67,6 @@ func Init(conf *setting.AppConfig) {
 		Lg = zerolog.New(output).
 			Level(zerolog.Level(logLevel)).
 			With().
-			Caller().
 			Timestamp().
 			Str("git_revision", gitRevision).
 			Str("go_version", buildInfo.GoVersion).
