@@ -12,6 +12,8 @@ import (
 	"github.com/lixvyang/mixin-checkin/internal/dao/mongo"
 	"github.com/lixvyang/mixin-checkin/internal/dao/redis"
 	"github.com/lixvyang/mixin-checkin/internal/router"
+	"github.com/lixvyang/mixin-checkin/internal/service/mixincli"
+	"github.com/lixvyang/mixin-checkin/internal/utils/cron"
 	"github.com/lixvyang/mixin-checkin/internal/utils/setting"
 	"github.com/lixvyang/mixin-checkin/pkg/logger"
 
@@ -19,7 +21,7 @@ import (
 )
 
 func init() {
-	if err := setting.Init("./configs/configs_example.yaml"); err != nil {
+	if err := setting.Init("./configs/configs.yaml"); err != nil {
 		log.Fatal().Err(err)
 	}
 	logger.Get(setting.Conf)
@@ -29,12 +31,18 @@ func init() {
 	if err := redis.Init(setting.Conf.RedisConfig); err != nil {
 		logger.Lg.Panic().Err(err).Msg("init redis err")
 	}
+	if err := mixincli.Init(setting.Conf.MixinConfig); err != nil {
+		logger.Lg.Panic().Err(err).Msg("init mixincli err")
+	}
+	go cron.Sched.Init()
 }
 
 func main() {
+	if err := mixincli.SendMessage(context.Background(), "6a87e67f-02fb-47cf-b31f-32a13dd5b3d9"); err != nil {
+		logger.Lg.Error().Err(err).Send()
+	}
 	defer mongo.Close()
 	defer redis.Close()
-	// 5. 注册路由
 	r := router.Init(setting.Conf)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", setting.Conf.Port),

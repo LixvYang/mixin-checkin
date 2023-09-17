@@ -8,11 +8,10 @@ import (
 )
 
 var (
-	MixinCli *mixin.Client
+	MixinCli = new(mixin.Client)
 )
 
-func Init(conf setting.MixinConfig) {
-	var err error
+func Init(conf *setting.MixinConfig) (err error) {
 	MixinCli, err = mixin.NewFromKeystore(&mixin.Keystore{
 		ClientID:   conf.ClientId,
 		SessionID:  conf.SessionId,
@@ -21,5 +20,7 @@ func Init(conf setting.MixinConfig) {
 	})
 	if err != nil {
 		logger.Lg.Fatal().Err(err).Msg("init mixin client error.")
+		return err
 	}
+	return
 }

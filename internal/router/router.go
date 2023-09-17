@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/lixvyang/ginzero"
+	"github.com/lixvyang/mixin-checkin/api/v1/checkin"
 	"github.com/lixvyang/mixin-checkin/internal/middleware"
 	"github.com/lixvyang/mixin-checkin/internal/utils/setting"
 	"github.com/lixvyang/mixin-checkin/pkg/logger"
@@ -20,6 +21,11 @@ func Init(conf *setting.AppConfig) *gin.Engine {
 	r.GET("/panic", func(c *gin.Context) {
 		panic("/panic")
 	})
+
+	// a := r.Group("/api/v1")
+
+	r.POST("/api/v1/checkin", checkin.PostCheckIn)
+	r.POST("/api/v1/createcheckin", checkin.CreateCheckIn)
 
 	return r
 }

@@ -13,7 +13,7 @@ func GinXid(logger *zerolog.Logger) gin.HandlerFunc {
 			return c.Str("xid", correlationID)
 		})
 		c.Header("X-Correlation-ID", correlationID)
-		c.Set("xid", logger)
+		c.Set("logger", logger)
 
 		c.Next()
 	}

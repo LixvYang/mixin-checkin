@@ -21,7 +21,9 @@ type Mgo struct {
 }
 
 type Coll struct {
-	UserColl *qmgo.Collection
+	UserColl      *qmgo.Collection
+	CheckIn       *qmgo.Collection
+	CheckInRecord *qmgo.Collection
 }
 
 // Init 初始化Mongo连接
@@ -38,7 +40,8 @@ func Init(cfg *setting.MongoConfig) (err error) {
 	})
 
 	coll.UserColl = mgo.DB.Collection("user")
-
+	coll.CheckIn = mgo.DB.Collection("checkin")
+	coll.CheckInRecord = mgo.DB.Collection("checkin_record")
 	return
 }
 

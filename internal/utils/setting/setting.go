@@ -25,12 +25,8 @@ type AppConfig struct {
 
 type MongoConfig struct {
 	Host string `mapstructure:"host"`
-	// User         string `mapstructure:"user"`
-	// Password     string `mapstructure:"password"`
-	DB   string `mapstructure:"dbname"`
+	DB   string `mapstructure:"db"`
 	Port int    `mapstructure:"port"`
-	// MaxOpenConns int    `mapstructure:"max_open_conns"`
-	// MaxIdleConns int    `mapstructure:"max_idle_conns"`
 }
 
 type RedisConfig struct {
@@ -56,6 +52,7 @@ type MixinConfig struct {
 	SessionId  string `mapstructure:"session_id"`
 	PrivateKey string `mapstructure:"private_key"`
 	PinToken   string `mapstructure:"pin_token"`
+	Pin        string `mapstructure:"pin"`
 }
 
 func Init(filePath string) (err error) {
