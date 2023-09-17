@@ -40,6 +40,13 @@ var randomQuotes = []string{
 	"作为大佬,请学会像资产阶级一样思考问题",
 }
 
+var successMsg = `⌛️日期: %s
+	👀打卡时间: %d:%d:%s
+
+	%s
+
+	这是你打卡的奖励💰✅`
+
 func generateQuotes() string {
 	rand.Seed(time.Now().UnixNano())
 	index := rand.Intn(len(randomQuotes))
@@ -60,7 +67,11 @@ func generateCheckinSuccessMsg() string {
 		second = fmt.Sprintf("0%d", intsecond)
 	}
 
-	res := fmt.Sprintf("今天是 %d 年 %d 月 %d 日\n 你在 %d:%d:%s 完成了今日份打卡\n \n%s\n \n这是你早起的奖励⬇️⬇️⬇️", year, month, day, hour, minute, second, generateQuotes())
+	// res := fmt.Sprintf(`今天是 %d 年 %d 月 %d 日\n
+	// 你在 %d:%d:%s 完成了今日份打卡\n \n%s\n \n这是你早起的奖励⬇️⬇️⬇️`, year, month, day, hour, minute, second, generateQuotes())
+
+	res := fmt.Sprintf(successMsg, fmt.Sprintf("%d-%d-%d", year, month, day), hour, minute, second, generateQuotes())
+
 	return res
 }
 

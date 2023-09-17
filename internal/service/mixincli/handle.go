@@ -97,7 +97,7 @@ func handleMsg(ctx context.Context, msg *mixin.MessageView) (err error) {
 				State: UserSessionStateWaiting,
 			})
 			// 3. 等待30秒
-			time.Sleep(30 * time.Second)
+			time.Sleep(23 * time.Second)
 			// 4. 发送 checkin 标签
 			err = respondButtons(ctx, &xl, msg, mixin.MessageCategoryAppButtonGroup, 3)
 			if err != nil {
