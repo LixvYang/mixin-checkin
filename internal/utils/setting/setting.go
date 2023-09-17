@@ -16,6 +16,7 @@ type AppConfig struct {
 	StartTime string `mapstructure:"start_time"`
 	MachineID int64  `mapstructure:"machine_id"`
 	Port      int    `mapstructure:"port"`
+	JwtKey string `mapstructure:"jwt_key"`
 
 	*LogConfig   `mapstructure:"log"`
 	*MongoConfig `mapstructure:"mongo"`
@@ -53,6 +54,7 @@ type MixinConfig struct {
 	PrivateKey string `mapstructure:"private_key"`
 	PinToken   string `mapstructure:"pin_token"`
 	Pin        string `mapstructure:"pin"`
+	AppSecret  string `mapstructure:"app_secret"`
 }
 
 func Init(filePath string) (err error) {

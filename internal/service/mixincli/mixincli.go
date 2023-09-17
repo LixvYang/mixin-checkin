@@ -22,5 +22,6 @@ func Init(conf *setting.MixinConfig) (err error) {
 		logger.Lg.Fatal().Err(err).Msg("init mixin client error.")
 		return err
 	}
+	go AutoReplay()
 	return
 }

@@ -17,12 +17,13 @@ func Transfer(ctx context.Context, xl *zerolog.Logger, uid string) (err error) {
 	_, err = MixinCli.Transfer(ctx, &mixin.TransferInput{
 		AssetID:    "4d8c508b-91c5-375b-92b0-ee702ed2dac5",
 		OpponentID: uid,
-		Memo:       "测试一下",
-		TraceID:    mixin.UniqueConversationID(setting.Conf.MixinConfig.ClientId, uid),
+		Memo:       "",
+		TraceID:    mixin.RandomTraceID(),
 		Amount:     amount,
 	}, setting.Conf.MixinConfig.Pin)
 	if err != nil {
 		xl.Err(err).Caller().Send()
 	}
+
 	return err
 }

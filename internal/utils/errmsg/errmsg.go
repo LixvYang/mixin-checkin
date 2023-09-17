@@ -5,7 +5,8 @@ const (
 	ERROR  = 500
 
 	// 绑定错误
-	ERROR_BIND = 0001
+	ERROR_BIND      = 0001
+	ERROR_RECHECKIN = 0002
 
 	// ERROR_USERNAME_USED code= 1000... 用户模块的错误
 	ERROR_USERNAME_USED    = 1001
@@ -38,7 +39,7 @@ const (
 	ERROR_GET_BONUSE       = 4004
 	ERROR_DELETE_BONUSE    = 4005
 	ERROR_CREATE_BONUSE    = 4006
-	ERROR_UPDATE_BONUSE     = 4007
+	ERROR_UPDATE_BONUSE    = 4007
 
 	// code=5000... 话题错误
 	ERROR_UPDATE_TOPIC = 5001
@@ -48,8 +49,10 @@ const (
 )
 
 var codeMsg = map[int]string{
-	SUCCSE:                 "OK",
-	ERROR:                  "FAIL",
+	SUCCSE:          "OK",
+	ERROR:           "FAIL",
+	ERROR_RECHECKIN: "重复签到",
+
 	ERROR_BIND:             "输入参数错误",
 	ERROR_USERNAME_USED:    "用户名已存在！",
 	ERROR_PASSWORD_WRONG:   "密码错误",

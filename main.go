@@ -38,9 +38,13 @@ func init() {
 }
 
 func main() {
-	if err := mixincli.SendMessage(context.Background(), "6a87e67f-02fb-47cf-b31f-32a13dd5b3d9"); err != nil {
-		logger.Lg.Error().Err(err).Send()
-	}
+	// if err := mixincli.SendMessage(context.Background(), "6a87e67f-02fb-47cf-b31f-32a13dd5b3d9"); err != nil {
+	// 	logger.Lg.Error().Err(err).Send()
+	// }
+	// loc, _ := time.LoadLocation("Asia/Shanghai")
+	// t := time.Now().UTC()
+	// // 也可以直接使用24小时制格式
+	// fmt.Println(t.In(loc).Format("15:04:05"))
 	defer mongo.Close()
 	defer redis.Close()
 	r := router.Init(setting.Conf)

@@ -13,8 +13,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-const TimeFormat_YYMMDD_HHmmss = "2006-01-02 03:04:05"
-const TimeFormat_HHmmss = "03:04:05"
+const TimeFormat_YYMMDD_HHmmss = "2006-01-02 15:04:05"
+const TimeFormat_HHmmss = "15:04:05"
 
 var (
 	CheckInRecordExist   = errors.New("签到记录已经存在")

@@ -24,3 +24,10 @@ redis:
   password: "123456"
   db: 0
   pool_size: 100
+
+mixin:
+  client_id: 
+  session_id:
+  private_key: 
+  pin_token:
+  pin: 
