@@ -22,7 +22,7 @@ func CheckInHandler(c *gin.Context, xl *zerolog.Logger, req *model.CheckinReq) (
 	}
 
 	// 2.0 检查是否当天已经签过到了 如果签过了 则退出 返回已经签过到了
-	if err = mongo.CheckCheckInRecord(c, xl, req); err != nil {
+	if err = mongo.CheckCheckInRecord(c, xl, req.Uid); err != nil {
 		xl.Info().Err(err).Msg("今天已经签过到了~")
 		return err
 	}

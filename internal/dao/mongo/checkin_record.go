@@ -22,15 +22,15 @@ var (
 )
 
 // 签到当天记录是否已经存在
-func CheckCheckInRecord(ctx *gin.Context, xl *zerolog.Logger, req *model.CheckinReq) (err error) {
+func CheckCheckInRecord(ctx context.Context, xl *zerolog.Logger, uid string) (err error) {
 	// todayTime := strings.Split(time.Now().Format(TimeFormat_YYMMDD_HHmmss), " ")[0]
-	todayTime := strings.Split(req.Time, " ")[0]
-	// todayTime := strings.Split(time.Now().Format(TimeFormat_YYMMDD_HHmmss), " ")[0]
+	// todayTime := strings.Split(req.Time, " ")[0]
+	todayTime := strings.Split(time.Now().Format(TimeFormat_YYMMDD_HHmmss), " ")[0]
 	count, err := coll.CheckInRecord.Find(ctx, bson.M{
 		"time": bson.M{
 			"$regex": fmt.Sprintf("^%s", todayTime),
 		},
-		"uid": req.Uid,
+		"uid": uid,
 	}).Count()
 
 	if err != nil {

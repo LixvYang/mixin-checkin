@@ -10,7 +10,6 @@ import (
 	"time"
 
 	"github.com/lixvyang/mixin-checkin/internal/dao/mongo"
-	"github.com/lixvyang/mixin-checkin/internal/dao/redis"
 	"github.com/lixvyang/mixin-checkin/internal/router"
 	"github.com/lixvyang/mixin-checkin/internal/service/mixincli"
 	"github.com/lixvyang/mixin-checkin/internal/utils/cron"
@@ -28,9 +27,9 @@ func init() {
 	if err := mongo.Init(setting.Conf.MongoConfig); err != nil {
 		logger.Lg.Panic().Err(err).Msg("init mongo error")
 	}
-	if err := redis.Init(setting.Conf.RedisConfig); err != nil {
-		logger.Lg.Panic().Err(err).Msg("init redis err")
-	}
+	// if err := redis.Init(setting.Conf.RedisConfig); err != nil {
+	// 	logger.Lg.Panic().Err(err).Msg("init redis err")
+	// }
 	if err := mixincli.Init(setting.Conf.MixinConfig); err != nil {
 		logger.Lg.Panic().Err(err).Msg("init mixincli err")
 	}
@@ -46,7 +45,7 @@ func main() {
 	// // 也可以直接使用24小时制格式
 	// fmt.Println(t.In(loc).Format("15:04:05"))
 	defer mongo.Close()
-	defer redis.Close()
+	// defer redis.Close()
 	r := router.Init(setting.Conf)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", setting.Conf.Port),

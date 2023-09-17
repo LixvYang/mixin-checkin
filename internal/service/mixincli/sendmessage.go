@@ -123,5 +123,8 @@ func sendCheckIn(checkReq *model.CheckinReq) (err error) {
 		return errors.New("重复签到")
 	}
 
+	if resp.Code != 200 {
+		return errors.New(resp.Message)
+	}
 	return
 }
