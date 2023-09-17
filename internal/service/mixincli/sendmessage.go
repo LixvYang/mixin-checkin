@@ -41,7 +41,7 @@ var randomQuotes = []string{
 }
 
 var successMsg = `⌛️日期: %s
-	👀打卡时间: %d:%d:%s
+	👀打卡时间: %d:%s:%s
 
 	%s
 
@@ -60,7 +60,11 @@ func generateCheckinSuccessMsg() string {
 	day := now.Day()
 
 	hour := now.Hour()
-	minute := now.Minute()
+	intminute := now.Minute()
+	minute := fmt.Sprintf("%d", intminute)
+	if int(intminute) < 10 {
+		minute = fmt.Sprintf("0%d", intminute)
+	}
 	intsecond := now.Second()
 	second := fmt.Sprintf("%d", intsecond)
 	if int(intsecond) < 10 {
